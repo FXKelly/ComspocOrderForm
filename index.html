@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>COMSPOC Business Card Ordering</title>
+<style>
+@font-face{font-family:AvenirNext;src:url("fonts/AvenirNextLTPro-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:AvenirNext;src:url("fonts/AvenirNextLTPro-Demi.ttf") format("truetype");font-weight:600;font-display:swap}
+:root{--blue:#0d4d96;--blue2:#3971b8;--ink:#231f20;--muted:#66707d;--line:#d9dde4;--page:#f3f5f8;--panel:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+header{padding:22px 28px;background:#0c294b;color:#fff;border-bottom:4px solid var(--blue2)}header h1{margin:0 0 5px;font-size:22px}header p{margin:0;color:#d9e5f2;font-size:14px}
+main{max-width:1450px;margin:auto;padding:24px}.workspace{display:grid;grid-template-columns:minmax(360px,450px) minmax(570px,1fr);gap:24px}.panel{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 25px rgba(0,0,0,.06)}.form-panel,.preview-panel{padding:22px}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:17px}.topline h2{margin:0;font-size:18px}.badge{font-size:11px;font-weight:700;padding:5px 9px;border-radius:999px;background:#e8f0fa;color:var(--blue)}
+.workflow{display:grid;gap:8px;margin-bottom:20px;padding:12px;border:1px solid var(--line);border-radius:9px;background:#fafbfc}.step{display:grid;grid-template-columns:27px 1fr;gap:9px}.step span{display:grid;place-items:center;width:23px;height:23px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700}.step strong{display:block;font-size:12px}.step small{display:block;color:var(--muted);font-size:11px;line-height:1.35;margin-top:2px}
+.field{margin-bottom:14px}label{display:block;font-size:12px;font-weight:700;letter-spacing:.03em;margin-bottom:6px}input,textarea,select{width:100%;border:1px solid #bcc3cd;border-radius:7px;padding:10px 11px;font:inherit;background:#fff}input:focus,textarea:focus,select:focus{outline:3px solid rgba(13,77,150,.14);border-color:var(--blue)}textarea{min-height:72px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.hint{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.35}.hidden{display:none!important}
+.qr-panel{margin:16px 0;padding:14px;border:1px solid var(--line);border-radius:9px;background:#fafbfc}.qr-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:11px}.qr-head h3{font-size:14px;margin:0}.toggle{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700}.toggle input{width:auto}.file-name{font-size:11px;color:var(--muted);margin-top:5px;word-break:break-all}
+.approval{display:flex;gap:9px;align-items:flex-start;margin:18px 0 12px;padding:12px;border:1px solid var(--line);border-radius:8px;background:#fafafa}.approval input{width:auto;margin-top:2px}.approval label{font-weight:400;letter-spacing:0;line-height:1.35;margin:0}.buttons{display:grid;gap:9px}button.action{border:0;border-radius:8px;padding:12px 14px;font:inherit;font-weight:700;cursor:pointer}.primary{background:var(--blue);color:#fff}.secondary{background:#17283b;color:#fff}.ghost{background:#eceff3;color:#222}button:disabled{opacity:.42;cursor:not-allowed}.reminder{margin-top:12px;padding:10px 11px;border:1px solid #b9d1ec;border-radius:7px;background:#edf5fd;color:#173f68;font-size:12px;line-height:1.4}.status{margin-top:11px;min-height:20px;font-size:13px;line-height:1.4}
+.cards{display:grid;gap:22px;justify-items:start}.card-wrap{width:min(100%,560px)}.card-label{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:7px}.card{position:relative;width:100%;aspect-ratio:1.75/1;overflow:hidden;border:1px solid #c9cbd1;box-shadow:0 10px 28px rgba(0,0,0,.13);background:#fff}.card>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.overlay{position:absolute;inset:0;width:1050px;height:600px;transform-origin:top left;transform:scale(var(--scale,.5));pointer-events:none;font-family:AvenirNext,Arial,sans-serif;color:#231f20}.name{position:absolute;left:108px;top:339px;width:560px;font-size:38px;line-height:1.08;font-weight:600;white-space:pre-line}.title{position:absolute;left:108px;top:387px;width:560px;font-size:30px;line-height:1.12;font-weight:400;font-style:normal;white-space:pre-line}.email-line,.phone-line{position:absolute;left:108px;width:570px;font-size:30px;line-height:1;font-weight:400;font-style:normal;white-space:nowrap}.email-line{top:429px;font-style:italic}.phone-line{top:471px}.phone-label{color:#231f20;font-weight:600}.qr-preview{position:absolute;left:742px;top:314px;width:205px;height:205px;object-fit:contain;background:#fff}.warning{display:none;margin-top:13px;padding:9px 10px;border:1px solid #ffd3ad;border-radius:7px;background:#fff4e8;color:#7a3600;font-size:12px}
+footer{max-width:1450px;margin:0 auto 28px;padding:0 24px;color:var(--muted);font-size:12px;line-height:1.5}@media(max-width:1000px){.workspace{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><h1>COMSPOC Business Card Ordering</h1><p>Enter the employee information, add an optional QR code, review the proof, and prepare the printer order.</p></header>
+<main><section class="workspace">
+<section class="panel form-panel">
+<div class="topline"><h2>COMSPOC Card Information</h2><span class="badge">ONE APPROVED DESIGN</span></div>
+<div class="workflow"><div class="step"><span>1</span><div><strong>Complete the card and shipping information</strong><small>Inspect the live proof, including the optional QR code.</small></div></div><div class="step"><span>2</span><div><strong>Download the press-ready PDF</strong><small>The front and back are exported as separate production pages.</small></div></div><div class="step"><span>3</span><div><strong>Approve and prepare the printer email</strong><small>Attach the downloaded PDF before sending.</small></div></div></div>
+<div class="field"><label>FULL NAME</label><input id="fullName" maxlength="48" value="Fran Maley"><div class="hint">Long names may wrap to a second line.</div></div>
+<div class="field"><label>TITLE</label><input id="jobTitle" maxlength="60" value="Facilities Manager"></div>
+<div class="row"><div class="field"><label>CELL PHONE</label><input id="cell" value="1-610-864-9291" placeholder="Optional"></div><div class="field"><label>OFFICE PHONE</label><input id="office" placeholder="Optional"></div></div>
+<div class="field"><label>EMAIL</label><input id="email" type="email" value="fmaley@comspoc.com"></div>
+<div class="field"><label>WEBSITE</label><input value="www.comspoc.com" disabled><div class="hint">Fixed on every COMSPOC card.</div></div>
+<div class="qr-panel"><div class="qr-head"><h3>QR Code — Front Only</h3><label class="toggle"><input type="checkbox" id="includeQr" checked> Include QR code</label></div><div id="qrControls"><div class="field"><label>UPLOAD QR IMAGE</label><input id="qrFile" type="file" accept="image/png,image/jpeg,image/svg+xml"><div class="hint">Upload the finished QR code supplied for this employee. PNG or SVG is recommended; a square, high-contrast image works best.</div><div class="file-name" id="qrFileName"></div></div></div></div>
+<div class="field"><label>SHIPPING RECIPIENT</label><input id="shipName" value="Fran Maley"></div>
+<div class="field"><label>SHIPPING ADDRESS</label><select id="shipAddressChoice"><option value="DEFAULT" selected>COMSPOC Corporation — Exton, Pennsylvania</option><option value="CUSTOM">Custom shipping address</option></select><div class="hint">Order-only information; it is not printed on the card.</div></div>
+<div class="field hidden" id="customShipAddressField"><label>CUSTOM SHIPPING ADDRESS</label><textarea id="shipAddress" placeholder="Company or recipient&#10;Street address&#10;City, State ZIP"></textarea></div>
+<div class="row"><div class="field"><label>QUANTITY</label><select id="quantity"><option>100</option><option selected>250</option><option>500</option><option>1000</option></select></div><div class="field"><label>REQUESTED BY</label><input id="requestedBy" placeholder="Your name"></div></div>
+<div class="approval"><input type="checkbox" id="approve"><label for="approve">I reviewed the spelling, title, contact information, QR destination, quantity, and shipping details and approve this order for production.</label></div>
+<div class="buttons"><button class="action primary" id="downloadBtn">Download Press-Ready PDF</button><button class="action secondary" id="emailBtn" disabled>Approve &amp; Prepare Printer Email</button><button class="action ghost" id="resetBtn">Reset Form</button></div>
+<div class="reminder"><strong>Before sending:</strong> Attach the PDF downloaded in Step 2. The email is addressed to <strong>larry@wilsonpromos.com</strong> and <strong>fxkelly@gmail.com</strong>, with the employee copied.</div><div class="status" id="status"></div>
+</section>
+<section class="panel preview-panel"><div class="topline"><h2>Digital Proof</h2><span class="badge">LIVE PREVIEW</span></div><div class="cards"><div class="card-wrap"><div class="card-label">FRONT — CUSTOMIZED, TRIM SIZE</div><div class="card" id="frontCard"><img src="artwork/comspoc-front.svg" alt="COMSPOC front artwork"><div id="overlay" class="overlay"></div></div></div><div class="card-wrap"><div class="card-label">BACK — FIXED, FULL BLEED</div><div class="card"><img src="artwork/comspoc-back.svg" alt="COMSPOC back artwork"></div></div></div><div class="warning" id="warning">One or more entries are unusually long. Review the proof carefully.</div></section>
+</section></main>
+<footer>The exported PDF contains a 3.5 × 2 inch front at trim size and a full-bleed back extending 0.125 inch on every side. Crop marks and production PDF boxes are included. Customized Avenir typography, including the true Avenir Next Italic email face, is converted to vector outlines, and black variable type is output as C0 M0 Y0 K100. The webpage does not store submitted information.</footer>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/opentype.js@1.3.4/dist/opentype.min.js"></script>
+<script>
+const $=id=>document.getElementById(id);const FRONT_PDF="print/comspoc-front.pdf",BACK_PDF="print/comspoc-back.pdf",REGULAR_FONT="fonts/AvenirNextLTPro-Regular.ttf",DEMI_FONT="fonts/AvenirNextLTPro-Demi.ttf",ITALIC_TTC="fonts/AVENIR NEXT.TTC",ITALIC_TTC_FACE=4;const DEFAULT_SHIPPING_ADDRESS="COMSPOC Corporation\n224 Valley Creek Blvd\nSuite 210\nExton, PA 19341";let qrDataUrl="",uploadedQrDataUrl="",pdfDownloaded=false,lastFilename="";
+function currentShippingAddress(){return $("shipAddressChoice").value==="CUSTOM"?$("shipAddress").value.trim():DEFAULT_SHIPPING_ADDRESS}
+function updateShippingAddressUi(){const custom=$("shipAddressChoice").value==="CUSTOM";$("customShipAddressField").classList.toggle("hidden",!custom);invalidate()}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br>")}
+function phoneLines(){const lines=[];if($("cell").value.trim())lines.push($("cell").value.trim());if($("office").value.trim())lines.push($("office").value.trim());return lines}
+function invalidate(){if(pdfDownloaded){pdfDownloaded=false;lastFilename="";$("status").innerHTML="<strong>Card information changed.</strong> Download a new PDF before preparing the printer email."}updateEmailState()}
+function syncScale(){$("frontCard").style.setProperty("--scale",$("frontCard").clientWidth/1050)}new ResizeObserver(syncScale).observe($("frontCard"));window.addEventListener("resize",syncScale);
+function refreshQr(){qrDataUrl=$("includeQr").checked?uploadedQrDataUrl:"";buildOverlay()}
+function buildOverlay(){
+const name=$("fullName").value.trim()||"FULL NAME",title=$("jobTitle").value.trim()||"TITLE",email=$("email").value.trim();
+const cell=$("cell").value.trim(),office=$("office").value.trim(),phones=phoneLines();
+let phoneHtml="";
+if(cell&&office)phoneHtml=`<span class="phone-label">C:</span> ${esc(cell)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="phone-label">O:</span> ${esc(office)}`;
+else if(cell)phoneHtml=`<span class="phone-label">C:</span> ${esc(cell)}`;
+else if(office)phoneHtml=`<span class="phone-label">O:</span> ${esc(office)}`;
+$("overlay").innerHTML=`<div class="name">${esc(name)}</div><div class="title">${esc(title)}</div>${email?`<div class="email-line">${esc(email)}</div>`:""}${phoneHtml?`<div class="phone-line">${phoneHtml}</div>`:""}${qrDataUrl?`<img class="qr-preview" src="${qrDataUrl}" alt="QR code">`:""}`;
+$("shipName").value=$("shipName").dataset.manual==="true"?$("shipName").value:name;
+$("warning").style.display=(name.length>36||title.length>45||email.length>34||phones.length>2)?"block":"none";
+syncScale()
+}
+function updateQrUi(){const enabled=$("includeQr").checked;$("qrControls").classList.toggle("hidden",!enabled);refreshQr();invalidate()}
+$("qrFile").addEventListener("change",e=>{const file=e.target.files[0];$("qrFileName").textContent=file?file.name:"";if(!file){uploadedQrDataUrl="";refreshQr();return}const r=new FileReader();r.onload=()=>{uploadedQrDataUrl=r.result;refreshQr();invalidate()};r.readAsDataURL(file)});
+$("includeQr").addEventListener("change",updateQrUi);
+["fullName","jobTitle","cell","office","email","shipAddress","quantity","requestedBy"].forEach(id=>{$(id).addEventListener("input",()=>{buildOverlay();invalidate()});$(id).addEventListener("change",()=>{buildOverlay();invalidate()})});$("shipAddressChoice").addEventListener("change",updateShippingAddressUi);$("shipName").addEventListener("input",()=>{$("shipName").dataset.manual="true";invalidate()});$("approve").addEventListener("change",updateEmailState);function updateEmailState(){$("emailBtn").disabled=!($("approve").checked&&pdfDownloaded)}
+async function fetchBytes(url,label){const r=await fetch(url);if(!r.ok)throw new Error(`Unable to load ${label}.`);return r.arrayBuffer()}
+function width(font,text,size){return font.getAdvanceWidth(String(text||""),size,{kerning:true})}
+function splitLines(text,font,size,maxWidth,maxLines=2){const words=String(text||"").trim().replace(/\s+/g," ").split(" ").filter(Boolean);if(!words.length)return [""];const lines=[];let line="";for(const word of words){const c=line?line+" "+word:word;if(!line||width(font,c,size)<=maxWidth)line=c;else{lines.push(line);line=word;if(lines.length===maxLines-1)break}}const used=lines.join(" ").split(" ").filter(Boolean).length,remaining=words.slice(used).join(" ");if(lines.length<maxLines&&remaining)lines.push(remaining);return lines.slice(0,maxLines)}
+function drawOutlined(page,text,x,y,font,size,color){if(!text)return;const p=font.getPath(String(text),0,0,size,{kerning:true});page.drawSvgPath(p.toPathData(3),{x,y,color,borderWidth:0})}
+function extractTtcFace(buffer,index){
+const dv=new DataView(buffer);
+const tag=o=>String.fromCharCode(dv.getUint8(o),dv.getUint8(o+1),dv.getUint8(o+2),dv.getUint8(o+3));
+if(tag(0)!=="ttcf")throw new Error("Italic font file is not a valid TTC collection.");
+const numFonts=dv.getUint32(8,false);
+if(index<0||index>=numFonts)throw new Error("Requested italic face was not found in the TTC collection.");
+const faceOffset=dv.getUint32(12+index*4,false);
+const numTables=dv.getUint16(faceOffset+4,false);
+const records=[];
+let total=12+numTables*16;
+for(let i=0;i<numTables;i++){
+const ro=faceOffset+12+i*16;
+const tableTag=tag(ro),checksum=dv.getUint32(ro+4,false),offset=dv.getUint32(ro+8,false),length=dv.getUint32(ro+12,false);
+total=(total+3)&~3;
+records.push({tableTag,checksum,offset,length,newOffset:total});
+total+=((length+3)&~3);
+}
+const out=new ArrayBuffer(total),ov=new DataView(out),ou=new Uint8Array(out),src=new Uint8Array(buffer);
+for(let i=0;i<12;i++)ou[i]=src[faceOffset+i];
+records.forEach((r,i)=>{
+const ro=12+i*16;
+for(let j=0;j<4;j++)ou[ro+j]=r.tableTag.charCodeAt(j);
+ov.setUint32(ro+4,r.checksum,false);
+ov.setUint32(ro+8,r.newOffset,false);
+ov.setUint32(ro+12,r.length,false);
+ou.set(src.subarray(r.offset,r.offset+r.length),r.newOffset);
+});
+return out;
+}
+function drawWrapped(page,text,x,y,font,size,color,maxWidth,lineHeight,maxLines=2){const lines=splitLines(text,font,size,maxWidth,maxLines);lines.forEach((line,i)=>drawOutlined(page,line,x,y-i*lineHeight,font,size,color));return lines.length}
+function drawMultiline(page,lines,x,y,font,size,color,lineHeight){lines.forEach((line,i)=>drawOutlined(page,line,x,y-i*lineHeight,font,size,color))}
+async function normalizeQrPng(dataUrl){if(!dataUrl)return null;return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>{const c=document.createElement("canvas");c.width=900;c.height=900;const ctx=c.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,c.width,c.height);ctx.drawImage(img,0,0,c.width,c.height);resolve(c.toDataURL("image/png"))};img.onerror=reject;img.src=dataUrl})}
+function dataUrlBytes(dataUrl){const b=atob(dataUrl.split(",")[1]),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
+async function makePdf(){const {PDFDocument,cmyk,PDFName,PDFArray}=PDFLib;const pdf=await PDFDocument.create();const [regBytes,demiBytes,italicTtcBytes,frontBytes,backBytes]=await Promise.all([fetchBytes(REGULAR_FONT,"Avenir Regular"),fetchBytes(DEMI_FONT,"Avenir Demi"),fetchBytes(ITALIC_TTC,"Avenir Next TTC"),fetchBytes(FRONT_PDF,"front artwork"),fetchBytes(BACK_PDF,"back artwork")]);const reg=opentype.parse(regBytes.slice(0)),demi=opentype.parse(demiBytes.slice(0)),italic=opentype.parse(extractTtcFace(italicTtcBytes,ITALIC_TTC_FACE));const fs=await PDFDocument.load(frontBytes),bs=await PDFDocument.load(backBytes);const frontArt=await pdf.embedPage(fs.getPage(0)),backArt=await pdf.embedPage(bs.getPage(0));const trimW=252,trimH=144,bleed=9,backW=270,backH=162,margin=18,outW=306,outH=198;const frontX=margin+bleed,frontY=margin+bleed,backX=margin,backY=margin;
+function cropMarks(page){const k=cmyk(0,0,0,1),t=.5,g=3,l=12,tl=frontX,tr=frontX+trimW,tb=frontY,tt=frontY+trimH,bl=backX,br=backX+backW,bb=backY,bt=backY+backH;for(const y of [tb,tt]){page.drawLine({start:{x:bl-g-l,y},end:{x:bl-g,y},thickness:t,color:k});page.drawLine({start:{x:br+g,y},end:{x:br+g+l,y},thickness:t,color:k})}for(const x of [tl,tr]){page.drawLine({start:{x,y:bb-g-l},end:{x,y:bb-g},thickness:t,color:k});page.drawLine({start:{x,y:bt+g},end:{x,y:bt+g+l},thickness:t,color:k})}}
+const front=pdf.addPage([outW,outH]);front.drawPage(frontArt,{x:frontX,y:frontY,width:trimW,height:trimH});front.setMediaBox(0,0,outW,outH);front.setTrimBox(frontX,frontY,trimW,trimH);front.setBleedBox(frontX,frontY,trimW,trimH);front.setArtBox(frontX,frontY,trimW,trimH);const back=pdf.addPage([outW,outH]);back.drawPage(backArt,{x:backX,y:backY,width:backW,height:backH});back.setMediaBox(0,0,outW,outH);back.setTrimBox(frontX,frontY,trimW,trimH);back.setBleedBox(backX,backY,backW,backH);back.setArtBox(frontX,frontY,trimW,trimH);
+const black=cmyk(0,0,0,1),sx=trimW/1050,sy=trimH/600,px=v=>frontX+v*sx,py=v=>frontY+trimH-v*sy;const name=$("fullName").value.trim()||"FULL NAME",title=$("jobTitle").value.trim()||"TITLE",email=$("email").value.trim(),phones=phoneLines();const nSize=38*sy,tSize=30*sy,cSize=30*sy;const nLines=drawWrapped(front,name,px(108),py(372),demi,nSize,black,560*sx,41*sy,2);const titleBase=nLines>1?py(432):py(420);const tLines=drawWrapped(front,title,px(108),titleBase,reg,tSize,black,560*sx,31*sy,2);const emailBase=titleBase-(tLines*31+11)*sy;if(email)drawOutlined(front,email,px(108),emailBase,italic,cSize,black);if(phones.length){
+const phoneY=emailBase-42*sy;
+let x=px(108);
+if($("cell").value.trim()){
+drawOutlined(front,"C:",x,phoneY,demi,cSize,black);
+x+=width(demi,"C:",cSize)+4*sy;
+drawOutlined(front,$("cell").value.trim(),x,phoneY,reg,cSize,black);
+x+=width(reg,$("cell").value.trim(),cSize)+30*sy;
+}
+if($("office").value.trim()){
+drawOutlined(front,"O:",x,phoneY,demi,cSize,black);
+x+=width(demi,"O:",cSize)+4*sy;
+drawOutlined(front,$("office").value.trim(),x,phoneY,reg,cSize,black);
+}
+}
+if($("includeQr").checked&&qrDataUrl){const pngUrl=await normalizeQrPng(qrDataUrl),img=await pdf.embedPng(dataUrlBytes(pngUrl));front.drawImage(img,{x:px(742),y:py(519),width:205*sx,height:205*sy})}
+cropMarks(front);cropMarks(back);pdf.catalog.set(PDFName.of("PageMode"),PDFName.of("UseThumbs"));pdf.catalog.set(PDFName.of("PageLayout"),PDFName.of("TwoPageLeft"));const oa=PDFArray.withContext(pdf.context);oa.push(front.ref);oa.push(PDFName.of("Fit"));pdf.catalog.set(PDFName.of("OpenAction"),oa);pdf.setTitle(`COMSPOC Business Card - ${name}`);pdf.setSubject("Press-ready COMSPOC business card with trim-size front, full-bleed back, crop marks, outlined Avenir typography, and optional QR code");pdf.setCreator("COMSPOC Business Card Ordering");return pdf.save()}
+function safe(s){return(s||"employee").trim().replace(/[^a-z0-9]+/gi,"-").replace(/^-|-$/g,"")}
+async function downloadPdf(){try{$("status").innerHTML="<strong>Generating press-ready PDF…</strong>";const bytes=await makePdf(),blob=new Blob([bytes],{type:"application/pdf"}),id="CARD-"+new Date().toISOString().replace(/\D/g,"").slice(0,14),filename=`COMSPOC-Business-Card-${safe($("fullName").value)}-${id}.pdf`,url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);pdfDownloaded=true;lastFilename=filename;updateEmailState();$("status").innerHTML=`<strong>Step 2 complete.</strong><br>Downloaded: <code>${filename}</code><br>Avenir typography is outlined and black variable type is C0 M0 Y0 K100.`}catch(e){console.error(e);$("status").innerHTML=`<strong>PDF generation failed.</strong> ${e.message}`}}
+$("downloadBtn").addEventListener("click",downloadPdf);$("emailBtn").addEventListener("click",()=>{if(!pdfDownloaded||!$("approve").checked)return;const emp=$("email").value.trim(),qty=$("quantity").value,name=$("fullName").value.trim(),qrInfo=$("includeQr").checked&&uploadedQrDataUrl?"Uploaded QR image included":"Not included";const subject=encodeURIComponent(`Approved COMSPOC Business Card Order - ${name} - Qty ${qty}`);const body=encodeURIComponent(`Hello,\n\nPlease print ${qty} COMSPOC business cards using the attached press-ready PDF.\n\nCARD DETAILS\nName: ${name}\nTitle: ${$("jobTitle").value.trim()}\nCell phone: ${$("cell").value.trim()||"Omitted"}\nOffice phone: ${$("office").value.trim()||"Omitted"}\nEmail: ${emp||"Omitted"}\nWebsite: www.comspoc.com\nQR code: ${qrInfo}\n\nSHIPPING\nPlease ship the completed cards to:\n\n${$("shipName").value.trim()||name}\n${currentShippingAddress()||"Shipping address not supplied"}\n\nREQUESTED BY\n${$("requestedBy").value.trim()||"Not specified"}\n\nAPPROVAL\nThe requester reviewed and approved the digital proof for production.\n\nIMPORTANT ATTACHMENT\nPlease attach this press-ready PDF before sending:\n${lastFilename}\n\nThank you.`);window.location.href=`mailto:larry@wilsonpromos.com,fxkelly@gmail.com?cc=${encodeURIComponent(emp)}&subject=${subject}&body=${body}`;$("status").innerHTML=`<strong>Printer email prepared.</strong> Attach <code>${lastFilename}</code>, review, and send.`});
+$("resetBtn").addEventListener("click",()=>{$("fullName").value="Fran Maley";$("jobTitle").value="Facilities Manager";$("cell").value="1-610-864-9291";$("office").value="";$("email").value="fmaley@comspoc.com";$("shipName").value="Fran Maley";$("shipName").dataset.manual="";$("shipAddressChoice").value="DEFAULT";$("shipAddress").value="";$("customShipAddressField").classList.add("hidden");$("quantity").value="250";$("requestedBy").value="";$("includeQr").checked=true;$("qrFile").value="";$("qrFileName").textContent="";uploadedQrDataUrl="";$("approve").checked=false;pdfDownloaded=false;lastFilename="";updateEmailState();updateQrUi();$("status").textContent=""});
+document.fonts.ready.then(()=>{refreshQr();buildOverlay();syncScale()});
+</script></body></html>
